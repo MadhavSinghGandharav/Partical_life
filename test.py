@@ -61,12 +61,12 @@ def simulate(particles):
                 dxy = [i.position[0] - j.position[0], i.position[1] - j.position[1]]
                 distance = math.sqrt(dxy[0]**2 + dxy[1]**2)
                 attraction = relation[i.color][j.color]
-                if distance > 100:
+                if distance > 80:
                     continue
                 elif distance <= 15:
-                    force = -(0.01*distance - 1)
+                    force = -(0.05*distance - 1)
                 else:
-                    force = attraction / distance
+                    force  = attraction * math.exp(-distance / 20)  
                 vec[0] += force * dxy[0] / distance
                 vec[1] += force * dxy[1] / distance
         
@@ -92,15 +92,15 @@ colors = [(43, 207, 255), (179, 251, 50), (255, 50, 155)]  # blue, green, pink
 font = pygame.font.SysFont(None, 30)
 particles = []
 relation = [
-    [-10, 0, 0],  # Particle Type 0 blue
-    [0, -10, 0],  # Particle Type 1 green
-    [0, 0, -10]   # Particle Type 2 pink
+    [-3, -0.5, -1],  # Particle Type 0 blue
+    [0.5, 1, -1.5],  # Particle Type 1 green
+    [-1, 1,-3]   # Particle Type 2 pink
 ]
 
 # Create particles
 create_particles(0, 100)
 create_particles(1, 100)
-create_particles(2, 70)
+create_particles(2, 100)
 
 # Main game loop
 running = True
